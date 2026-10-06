@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KIA Passenger Duty Estimator | Ghana Customs Portal</title>
+    <style>
+        :root {
+            --primary: #0B2240;      /* Deep Ghana Corporate Navy */
+            --accent: #E5A93C;       /* Premium Gold Accent */
+            --bg-light: #F8FAFC;     /* Soft Off-White Background */
+            --card-bg: #FFFFFF;
+            --text-main: #1E293B;    /* Dark Charcoal for high readability */
+            --text-muted: #64748B;   /* Slate Gray for secondary text */
+            --border: #E2E8F0;       /* Crisp, subtle borders */
+            --success: #10B981;      /* Emerald Green for active status */
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Top Institutional Banner Header */
+        .app-header {
+            background-color: var(--primary);
+            color: white;
+            padding: 24px 20px;
+            text-align: center;
+            border-bottom: 4px solid var(--accent);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .app-header h1 {
+            margin: 0;
+            font-size: 22px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .app-header p {
+            margin: 6px 0 0 0;
+            font-size: 13px;
+            color: #94A3B8;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        .wrapper {
+            max-width: 520px;
+            margin: 24px auto;
+            padding: 0 16px 40px 16px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 28px;
+            box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.04), 0 8px 10px -6px rgba(15, 23, 42, 0.04);
+        }
+
+        .status-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            background: #F1F5F9;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--text-muted);
+        }
+
+        .status-dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background-color: var(--accent);
+            border-radius: 50%;
+            margin-right: 6px;
+        }
+
+        .status-active .status-dot {
+            background-color: var(--success);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 13px;
+            color: var(--text-main);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        select, input {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-size: 15px;
+            color: var(--text-main);
+            background-color: #FFF;
+            transition: all 0.2s ease;
+        }
+
+        select:focus, input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(11, 34, 64, 0.1);
+        }
+
+        .input-group-custom {
+            display: flex;
+            gap: 8px;
+        }
+
+        .input-group-custom select {
+            width: 32%;
+            background-color: #F8FAFC;
+            font-weight: 600;
+        }
+
+        .input-group-custom input {
+            width: 68%;
+        }
+
+        /* Premium Flat Button Design */
+        button {
+            width: 100%;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 14px;
+            font-size: 15px;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            box-shadow: 0 4px 6px -1px rgba(11, 34, 64, 0.2);
+        }
+
+        button:hover {
+            background-color: #123057;
+            transform: translateY(-1px);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        /* Styled Results Area (Simulating a real Government Document) */
+        .result-box {
+            margin-top: 28px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background-color: #FAFAFA;
+            overflow: hidden;
+            display: none;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .result-header {
+            background-color: #F1F5F9;
+            padding: 12px 20px;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .result-body {
+            padding: 20px;
+        }
+
+        .result-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        .result-row strong {
+            color: var(--text-main);
+        }
+
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 2px dashed var(--border);
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .btn-secondary {
+            background-color: #FFF;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+            box-shadow: none;
+            margin-top: 16px;
+        }
+
+        .btn-secondary:hover {
+            background-color: #F8FAFC;
+        }
+
+        .disclaimer {
+            font-size: 11px;
+            color: var(--text-muted);
+            line-height: 1.5;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        /* PRINT MEDIA PROFILE - Seamless PDF rendering architecture */
+        @media print {
+            body { background: white; color: black; }
+            .app-header, .form-group, button, .status-container, .disclaimer, .result-header { display: none !important; }
+            .wrapper { max-width: 100%; margin: 0; padding: 0; }
+            .card { border: none; box-shadow: none; padding: 0; }
+            .result-box { display: block !important; border: 2px solid #000; background: white; margin: 0; }
+            .result-body { padding: 30px; }
+            .total-row { border-top: 2px solid #000; color: black; }
+        }
+    </style>
+</head>
+<body>
+
+<header class="app-header">
+    <h1>Kotoka International Airport</h1>
+    <p>Passenger Baggage Duty Portal</p>
+</header>
+
+<div class="wrapper">
+    <div class="card">
+        <div id="statusContainer" class="status-container">
+            <span>System Pipeline Baseline: 2026/2027</span>
+            <span id="apiStatus"><span class="status-dot"></span>Connecting...</span>
+        </div>
+        
+        <div class="form-group">
+            <label for="itemCategory">Declarable Item Type</label>
+            <select id="itemCategory">
+                <optgroup label="📱 Electronics & Gadgets">
+                    <option value="smartphone">Smartphone (iPhone, Samsung, etc.)</option>
+                    <option value="laptop">Laptop / Notebook Computer</option>
+                    <option value="tablet">Tablet (iPad, etc.)</option>
+                    <option value="smartwatch">Smartwatch / Fitness Tracker</option>
+                    <option value="television">Television / Smart TV</option>
+                    <option value="camera">Digital Camera / Drone</option>
+                    <option value="gaming">Gaming Console (PS5, Xbox, etc.)</option>
+                </optgroup>
+                <optgroup label="👜 Luxury & Fashion Items">
+                    <option value="clothing">New Clothing & Apparel (Commercial/Gifts)</option>
+                    <option value="shoes">Footwear & Designer Shoes</option>
+                    <option value="handbag">Designer Handbags & Briefcases</option>
+                    <option value="perfume">Perfumes & Fragrances</option>
+                    <option value="jewelry">Jewelry & Wristwatches</option>
+                </optgroup>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="origin">Flight Origin Point</label>
+            <select id="origin">
+                <option value="europe">Europe (Freight Proxy: $50)</option>
+                <option value="americas">North/South America (Freight Proxy: $80)</option>
+                <option value="asia">Asia / Middle East (Freight Proxy: $70)</option>
+                <option value="africa">Africa (Freight Proxy: $30)</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="itemCost">Declared Purchase Value</label>
+            <div class="input-group-custom">
+                <select id="currencyType">
+                    <option value="USD">USD ($)</option>
+                    <option value="GBP">GBP (£)</option>
+                    <option value="EUR">EUR (€)</option>
+                    <option value="XOF">CFA (F.CFA)</option>
